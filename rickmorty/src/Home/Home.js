@@ -20,6 +20,7 @@ class Home extends React.Component{
     render(){
         const episodes = this.state.data.map((episode, i) => {
             return <img key = {i} src={episode.image.medium}/>
+            // create link with this
             })
         return(
                 <div>
