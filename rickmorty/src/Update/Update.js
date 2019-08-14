@@ -1,55 +1,49 @@
 import React from 'react'
 import axios from 'axios'
-// import {Redirect} from 'react-router-dom'
 
- 
 
-class Create extends React.Component{
-    constructor(){
+class Update extends React.Component {
+    constructor() {
         super()
 
-        this.state={
+        this.state =  {
+            episodes: [],
             name:"",
             season: "",
             summary: "",
             mediumImg:"",
             originalImg:""
-            
-       }
-        
-    }
-       
-    
-    
-    submitNew= (e) => {
-        e.preventDefault()
-        const postBody = {
-            "name": this.state.name,
-            "season":this.state.season,
-            "summary": this.state.summary,
-            "image": {
-                "medium": this.state.mediumImg,
-                "original": this.state.originalImg
-            }
+ 
         }
-        console.log(postBody)
-     
-        axios.post('https://mern-backend-vic.herokuapp.com', postBody)
-            .then(res => {console.log(res)})
-            .catch((error) => {
-                console.log(error)
-              })
-             .finally( i => {
-                 this.setState({
-                    name:"",
-                    season: "",
-                    summary: "",
-                    mediumImg:"",
-                    originalImg:""
-                    
-               })
-             }) 
     }
+ 
+  
+ componentDidMount() {
+        axios.get('https://mern-backend-vic.herokuapp.com')
+            .then(res => {
+                this.setState({episodes: res.data})
+            })
+    }
+    
+
+
+    // update = () => {
+    //     axios.update(`https://mern-backend-vic.herokuapp.com/${this.state.name}`)
+    //         .then(res => {console.log(res)})
+    //         .catch((error) => {
+    //             console.log(error)
+    //           })
+    //           .finally( i => {
+    //             this.setState({
+    //                name:"",
+    //                season: "",
+    //                summary: "",
+    //                mediumImg:"",
+    //                originalImg:""
+                   
+    //           })
+
+
 
     updateName= (e) => {
         this.setState({name: e.target.value})
@@ -67,7 +61,14 @@ class Create extends React.Component{
         this.setState({originalImg: e.target.value})
     }
     render(){
+        let episodes = this.state.episodes.map((episode, i) => {
+            return <li key={i}>{episode.name}</li>
+        })
         return(
+            <div>
+                <ul>
+                    {episodes}
+                </ul>
             <form>
                 <input name = 'name' placeholder="Name" onChange={this.updateName} value = {this.state.name}></input>
                 <input placeholder="Season" onChange={this.updateSeason} value = {this.state.season}></input>
@@ -76,9 +77,9 @@ class Create extends React.Component{
                 <input placeholder="Original Image URL" onChange={this.updateOriginalImage} value = {this.state.originalImg}></input>
                 <button onClick={this.submitNew}>Submit</button>
             </form>
+            </div>
         )
     }
-
 }
 
-export default Create
+export default Update

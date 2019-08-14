@@ -1,39 +1,50 @@
-// import React from 'react'
-// import axios from 'axios'
-// import Episode from '../Episode/Episode'
+import React from 'react'
+import axios from 'axios'
  
+class Delete extends React.Component{
+    constructor() {
+        super()
 
-// class Create extends React.Component{
-//     constructor(){
-//         super()
+        this.state =  {
+            episodes: [],
+            delete: '' 
+        }
+    }
+    componentDidMount() {
+        axios.get('https://mern-backend-vic.herokuapp.com')
+            .then(res => {
+                this.setState({episodes: res.data})
+            })
+    }
+    handleInput = (e) => {
+        this.setState({delete: e.target.value})
+    }
 
-//         this.state={
-//             name:""
+    delete = () => {
+        axios.delete(`https://mern-backend-vic.herokuapp.com/${this.state.delete}`)
+            .then(res => {console.log(res)})
+            .catch((error) => {
+                console.log(error)
+              })
+             .finally( i => {
+                 this.setState({delete:""})})
             
-//        }
-        
-//     }
-       
-//     deleteEpisode({this.state.name}){
+    }
 
-//     }    
-    
+    render(){
+        let episodes = this.state.episodes.map((episode, i) => {
+            return <li key={i}>{episode.name}</li>
+        })
+        return (
+            <div>
+                <ul>
+                    {episodes}
+                </ul>
+                <input placeholder='Episode to delete?' value = {this.state.delete} onChange= {this.handleInput}></input>
+                <button onClick={this.delete}>Submit</button>
+            </div>
+        )
+    }
+}
 
-
-//     updateName= (e) => {
-//         this.setState({name: e.target.value})
-//     }
-    
-//     render(){
-//         return(
-//             <form>
-//                 <input name = 'name' placeholder="Search by Name" onChange={this.updateName}></input>
-//                 <button>Submit</button>
-                
-//             </form>
-//         )
-//     }
-
-// }
-
-// export default Delete
+export default Delete

@@ -22,9 +22,18 @@ class Episode extends React.Component{
     }
     render() {
         const episodeInfo = this.state.info.map( (info, i) =>{
+            let picture
+            if (info.image.original != null){
+                picture = <img src={info.image.original} alt={info.name}/> 
+            }else if (info.image.medium != null){
+                picture = <img src={info.image.medium} alt={info.name}/> 
+            }else{
+                picture = <div></div>
+            } 
+
             return(
                 <div key ={i}>
-                    <img src={info.image.original} alt={info.name}/>
+                    {picture}
                     <h1>Name:{info.name}</h1>
                     <h2>Season: {info.season}</h2>
                     <p>Summary: {info.summary}</p>
