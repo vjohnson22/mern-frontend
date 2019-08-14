@@ -24,7 +24,7 @@ class Episode extends React.Component{
         const episodeInfo = this.state.info.map( (info, i) =>{
             return(
                 <div key ={i}>
-                    <img src={info.image.original}/>
+                    <img src={info.image.original} alt={info.name}/>
                     <h1>Name:{info.name}</h1>
                     <h2>Season: {info.season}</h2>
                     <p>Summary: {info.summary}</p>

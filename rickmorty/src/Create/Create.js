@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 
+ 
+
 class Create extends React.Component{
     constructor(){
         super()
@@ -15,11 +17,10 @@ class Create extends React.Component{
        }
         
     }
-    componentDidMount(){
-        
-        // axios.post()
-    }
-    createPost = (e) => {
+       
+    
+    
+    submitNew= (e) => {
         e.preventDefault()
         const postBody = {
             "name": `${this.state.name}`,
@@ -31,6 +32,9 @@ class Create extends React.Component{
             }
         }
         console.log(postBody)
+     
+        axios.post('https://mern-backend-vic.herokuapp.com', postBody)
+            .then(res => {console.log(res)})
     }
 
     updateName= (e) => {
@@ -56,7 +60,7 @@ class Create extends React.Component{
                 <input placeholder="Summary" onChange={this.updateSummary}></input>
                 <input placeholder="Medium Image URL" onChange={this.updateMediumImage}></input>
                 <input placeholder="Original Image URL" onChange={this.updateOriginalImage}></input>
-                <button onClick={this.createPost}>Submit</button>
+                <button onClick={this.submitNew}>Submit</button>
             </form>
         )
     }

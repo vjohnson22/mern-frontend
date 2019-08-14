@@ -15,12 +15,12 @@ class Home extends React.Component{
             
             .then(res => {
                 this.setState({data:res.data})
-                console.log(res.data)
+                
             }) 
     }
     render(){
         const episodes = this.state.data.map((episode, i) => {
-            return <Link to={`${episode.name}`}> <img key = {i} src={episode.image.medium}/></Link>
+            return <Link to={`${episode.name}`} key={i}> <img key = {i} src={episode.image.medium} alt={episode.name} /></Link>
             // create link with this
             })
         return(
