@@ -3,9 +3,18 @@ import logo from './logo.svg';
 import './App.css';
 import {Link, Route} from 'react-router-dom'
 import Home from './Home/Home'
+import Episode from './Episode/Episode'
 
 class App extends React.Component{
+  constructor() {
+    super()
+
+    this.state = {}
   
+  }
+  setAppState = (episode) => {
+    this.setState({episode})
+  }
   render(){
   return (
       <div>
@@ -18,7 +27,8 @@ class App extends React.Component{
           <h1>Delete</h1>
         </nav>
         <main>
-          <Route component = {Home}/>
+          <Route exact path = '/' component = {Home}/>
+          <Route path = '/:name' render = { routerProps => (<Episode setAppState = {this.setAppState} {...this.state} {...routerProps} />)}/>
         </main>
       </div>
     )
