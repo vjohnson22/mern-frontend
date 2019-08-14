@@ -23,14 +23,14 @@ class App extends React.Component{
           <Link to='/'>
           < h1>Home</h1>
           </Link>
-          <Link to="/create"><h1>Create</h1></Link>
+          <Link to="/create/new"><h1>Create</h1></Link>
           <h1>Update</h1>
           <h1>Delete</h1>
         </nav>
         <main>
           <Route exact path = '/' component = {Home}/>
           <Route exact path = '/:name' render = { routerProps => (<Episode setAppState = {this.setAppState} {...this.state} {...routerProps} />)}/>
-          <Route  exact path = '/create' component= {Create}/>
+          <Route  exact path = '/create/new' component= {Create}/>
         </main>
       </div>
     )
