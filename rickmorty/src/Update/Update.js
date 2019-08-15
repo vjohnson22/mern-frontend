@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
+let updateValue
 
 class Update extends React.Component {
     constructor() {
@@ -25,41 +26,20 @@ class Update extends React.Component {
             })
     }
     
-
-
-    update = (e) => {
+    updateSeasonClick = (e) => {
         e.preventDefault()
-        let season 
-        if(this.state.season !== ""){
-            season = `, season:"${this.state.season}"`
-        }else{
-            season = ""
-        }
+        updateValue = {season: this.state.season}
+        this.update()
+    }
+    updateSummaryClick = (e) => {
+        e.preventDefault()
+        updateValue = {summary: this.state.summary}
+        this.update()
+    }
 
-        let summary 
-        if(this.state.summary !== ""){
-            summary = `, summary:"${this.state.summary}",`
-        }else{
-            summary = ""
-        }
-        let medium 
-        if(this.state.medium !== ""){
-            medium = ` medium:"${this.state.medium}"`
-        }else{
-            medium = ""
-        }
-        let original 
-        if(this.state.original !== ""){
-            original = `, original:"${this.state.original}"`
-        }else{
-            original = ""
-        }
-        let updateBody = `{name: "${this.state.name}"${season}${summary} image:{${medium}${original}}}`
-            
-           
-        
-        console.log(updateBody)
-        axios.patch(`https://mern-backend-vic.herokuapp.com/${this.state.name}`,updateBody)
+    update = () => {
+                        
+        axios.patch(`https://mern-backend-vic.herokuapp.com/${this.state.name}`, updateValue)
             .then(res => {console.log(res)})
             .catch((error) => {
                 console.log(error)
@@ -73,6 +53,7 @@ class Update extends React.Component {
                    originalImg:""
                    
               })
+              updateValue = undefined
             })
         }
 
@@ -104,11 +85,15 @@ class Update extends React.Component {
                 </ul>
             <form>
                 <input name = 'name' placeholder="Name" onChange={this.updateName} value = {this.state.name}></input>
-                <input placeholder="Season" onChange={this.updateSeason} value = {this.state.season}></input>
-                <input placeholder="Summary" onChange={this.updateSummary} value = {this.state.summary}></input>
-                <input placeholder="Medium Image URL" onChange={this.updateMediumImage} value = {this.state.mediumImg} ></input>
-                <input placeholder="Original Image URL" onChange={this.updateOriginalImage} value = {this.state.originalImg}></input>
-                <button onClick={this.update}>Submit</button>
+                <div>
+                    <input placeholder="Season" onChange={this.updateSeason} value = {this.state.season}></input>
+                    <button onClick={this.updateSeasonClick}>Update Season</button>
+                </div>
+                <div>
+                    <input placeholder="Summary" onChange={this.updateSummary} value = {this.state.summary}></input>
+                    <button onClick={this.updateSummaryClick}>Update Summary</button>
+                </div>
+                
             </form>
             </div>
         )
