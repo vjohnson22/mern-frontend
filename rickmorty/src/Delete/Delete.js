@@ -22,12 +22,17 @@ class Delete extends React.Component{
 
     delete = () => {
         axios.delete(`https://mern-backend-vic.herokuapp.com/${this.state.delete}`)
-            .then(res => {console.log(res)})
+            .then(res => {
+               this.setState({delete:""})
+               })
+            .then( i => {
+                this.setState({ state: this.state })
+            }   
+            )
             .catch((error) => {
                 console.log(error)
               })
-             .finally( i => {
-                 this.setState({delete:""})})
+            
             
     }
 

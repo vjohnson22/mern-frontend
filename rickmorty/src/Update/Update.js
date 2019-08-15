@@ -27,21 +27,54 @@ class Update extends React.Component {
     
 
 
-    // update = () => {
-    //     axios.update(`https://mern-backend-vic.herokuapp.com/${this.state.name}`)
-    //         .then(res => {console.log(res)})
-    //         .catch((error) => {
-    //             console.log(error)
-    //           })
-    //           .finally( i => {
-    //             this.setState({
-    //                name:"",
-    //                season: "",
-    //                summary: "",
-    //                mediumImg:"",
-    //                originalImg:""
+    update = (e) => {
+        e.preventDefault()
+        let season 
+        if(this.state.season !== ""){
+            season = `, season:"${this.state.season}"`
+        }else{
+            season = ""
+        }
+
+        let summary 
+        if(this.state.summary !== ""){
+            summary = `, summary:"${this.state.summary}",`
+        }else{
+            summary = ""
+        }
+        let medium 
+        if(this.state.medium !== ""){
+            medium = ` medium:"${this.state.medium}"`
+        }else{
+            medium = ""
+        }
+        let original 
+        if(this.state.original !== ""){
+            original = `, original:"${this.state.original}"`
+        }else{
+            original = ""
+        }
+        let updateBody = `{name: "${this.state.name}"${season}${summary} image:{${medium}${original}}}`
+            
+           
+        
+        console.log(updateBody)
+        axios.patch(`https://mern-backend-vic.herokuapp.com/${this.state.name}`,updateBody)
+            .then(res => {console.log(res)})
+            .catch((error) => {
+                console.log(error)
+              })
+              .finally( i => {
+                this.setState({
+                   name:"",
+                   season: "",
+                   summary: "",
+                   mediumImg:"",
+                   originalImg:""
                    
-    //           })
+              })
+            })
+        }
 
 
 
@@ -75,7 +108,7 @@ class Update extends React.Component {
                 <input placeholder="Summary" onChange={this.updateSummary} value = {this.state.summary}></input>
                 <input placeholder="Medium Image URL" onChange={this.updateMediumImage} value = {this.state.mediumImg} ></input>
                 <input placeholder="Original Image URL" onChange={this.updateOriginalImage} value = {this.state.originalImg}></input>
-                <button onClick={this.submitNew}>Submit</button>
+                <button onClick={this.update}>Submit</button>
             </form>
             </div>
         )
