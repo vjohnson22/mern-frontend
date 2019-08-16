@@ -44,7 +44,7 @@ class Update extends React.Component {
             .catch((error) => {
                 console.log(error)
               })
-              .finally( i => {
+            .finally( i => {
                 this.setState({
                    name:"",
                    season: "",

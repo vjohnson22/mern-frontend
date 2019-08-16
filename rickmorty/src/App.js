@@ -8,6 +8,7 @@ import Delete from './Delete/Delete'
 import Update from './Update/Update'
 import SignUpForm from './SignUpForm/SignUpForm'
 import axios from 'axios'
+import LogOut from './LogOut/LogOut'
 
 class App extends React.Component{
   constructor() {
@@ -20,9 +21,6 @@ class App extends React.Component{
     }
   
   }
-  // setAppState = (episode) => {
-  //   this.setState({episode})
-  // }
 
   handleLogOut = () => {
     this.setState({
@@ -75,6 +73,7 @@ class App extends React.Component{
           <Link to='/episodes/update'> <h1>Update</h1></Link>
           <Link to="/episodes/delete"><h1>Delete</h1></Link>
           <Link to="/user/signup"><h1>Sign Up</h1></Link>
+          <Link to="/user/logout"><h1>Log Out</h1></Link>
         </nav>
         <main>
           <Route exact path = '/' component = {Home}/>
@@ -82,7 +81,8 @@ class App extends React.Component{
           <Route  exact path = '/create/new' component= {Create}/>
           <Route exact path = '/episodes/delete' component = {Delete}/>
           <Route exact path = '/episodes/update' component = {Update}/>
-  <Route exact path = "/user/signup" render = {<SignUpForm isLoggedIn={this.state.isLoggedIn} handleInput={this.handleInput} handleSignUp={this.handleSignUp} />}/>
+          <Route exact path = "/user/signup" render = {() => (<SignUpForm isLoggedIn={this.state.isLoggedIn} handleInput={this.handleInput} handleSignUp={this.handleSignUp} />)}/>
+          {/* <Route exact path = "/user/logout" render = {() => (<LogOut isLoggedIn={this.state.isLoggedIn} handleLogOut={this.handleLogOut} />)}/> */}
         </main>
       </div>
     )
